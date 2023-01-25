@@ -34,7 +34,7 @@ class MyApp extends StatelessWidget {
 
     
 
-      home: const MyHomePage(title: ' flutter Demo  Page'),
+      home: const MyHomePage(title: ' flutter   Page'),
     );
   }
 }
