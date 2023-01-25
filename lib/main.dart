@@ -31,7 +31,10 @@ class MyApp extends StatelessWidget {
         // is not restarted.
         primarySwatch: Colors.blue,
       ),
-      home: const MyHomePage(title: ' Demo  Page'),
+
+    
+
+      home: const MyHomePage(title: ' flutter Demo  Page'),
     );
   }
 }
