@@ -1,32 +1,31 @@
-import 'package:cloud_functions/controller/authcontroller.dart';
-import 'package:firebase_ui_auth/firebase_ui_auth.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/src/widgets/container.dart';
+import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
-class PhoneAuth extends StatelessWidget {
-  PhoneAuth({super.key});
-  final ctrl = Get.put(AuthControler());
+import '../controller/authcontroller.dart';
 
+class OtpScreen extends StatelessWidget {
+  OtpScreen({super.key});
+  final ctrl = Get.put(AuthControler());
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        appBar: AppBar(
-          title: const Text("PhoneAuth"),
-        ),
+        appBar: AppBar(),
         body: Padding(
           padding: const EdgeInsets.all(12.0),
           child: Column(
             mainAxisAlignment: MainAxisAlignment.center,
             crossAxisAlignment: CrossAxisAlignment.center,
             children: [
-              const Text("Sign With Phone Number"),
+              const Text("ENTER OTP"),
               const SizedBox(
                 height: 25,
               ),
               TextFormField(
-                controller: ctrl.phoneNumber,
+                controller: ctrl.otp,
                 decoration: const InputDecoration(
-                    hintText: "ENTER PHONE NUMBER",
+                    hintText: "ENTER OTP",
                     border: OutlineInputBorder(),
                     enabledBorder: OutlineInputBorder(),
                     focusedBorder: OutlineInputBorder(),
@@ -37,8 +36,9 @@ class PhoneAuth extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  if (ctrl.phoneNumber.text.trim().isNotEmpty) {
-                    ctrl.phoneSignIn();
+                  if (ctrl.verificationid.value.trim().isNotEmpty &&
+                      ctrl.verificationid.value.trim() != "") {
+                    ctrl.verifyOtp();
                   }
                 },
                 child: Container(
@@ -49,7 +49,7 @@ class PhoneAuth extends StatelessWidget {
                       borderRadius: BorderRadius.circular(12),
                       color: Colors.green),
                   child: const Text(
-                    "Get OTP",
+                    "DONE",
                   ),
                 ),
               ),

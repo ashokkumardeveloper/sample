@@ -1,6 +1,7 @@
 import 'package:cloud_functions/view/phoneauth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:get/get.dart';
 
 import 'firebase_options.dart';
 
@@ -17,6 +18,6 @@ class MyApp extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return PhoneAuth();
+    return GetMaterialApp(home: PhoneAuth());
   }
 }
