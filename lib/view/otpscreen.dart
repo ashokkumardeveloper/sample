@@ -7,7 +7,7 @@ import '../controller/authcontroller.dart';
 
 class OtpScreen extends StatelessWidget {
   OtpScreen({super.key});
-  final ctrl = Get.put(AuthControler());
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -23,7 +23,6 @@ class OtpScreen extends StatelessWidget {
                 height: 25,
               ),
               TextFormField(
-                controller: ctrl.otp,
                 decoration: const InputDecoration(
                     hintText: "ENTER OTP",
                     border: OutlineInputBorder(),
@@ -36,10 +35,10 @@ class OtpScreen extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  if (ctrl.verificationid.value.trim().isNotEmpty &&
-                      ctrl.verificationid.value.trim() != "") {
-                    ctrl.verifyOtp();
-                  }
+                  // if (ctrl.verificationid.value.trim().isNotEmpty &&
+                  //     ctrl.verificationid.value.trim() != "") {
+                  //   ctrl.verifyOtp();
+                  // }
                 },
                 child: Container(
                   alignment: Alignment.center,

@@ -5,7 +5,6 @@ import 'package:get/get.dart';
 
 class PhoneAuth extends StatelessWidget {
   PhoneAuth({super.key});
-  final ctrl = Get.put(AuthControler());
 
   @override
   Widget build(BuildContext context) {
@@ -24,7 +23,6 @@ class PhoneAuth extends StatelessWidget {
                 height: 25,
               ),
               TextFormField(
-                controller: ctrl.phoneNumber,
                 decoration: const InputDecoration(
                     hintText: "ENTER PHONE NUMBER",
                     border: OutlineInputBorder(),
@@ -37,9 +35,9 @@ class PhoneAuth extends StatelessWidget {
               ),
               InkWell(
                 onTap: () {
-                  if (ctrl.phoneNumber.text.trim().isNotEmpty) {
-                    ctrl.phoneSignIn();
-                  }
+                  // if (ctrl.phoneNumber.text.trim().isNotEmpty) {
+                  //   ctrl.phoneSignIn();
+                  // }
                 },
                 child: Container(
                   alignment: Alignment.center,
