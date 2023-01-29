@@ -5,6 +5,8 @@ import 'package:flutter/src/widgets/container.dart';
 import 'package:flutter/src/widgets/framework.dart';
 import 'package:get/get.dart';
 
+import 'detailpage.dart';
+
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final notiController = Get.put(NotificationController());
@@ -15,6 +17,7 @@ class HomeScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text("Home Screen"),
+        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add))],
       ),
       body: Padding(
         padding: const EdgeInsets.all(20.0),
@@ -40,6 +43,24 @@ class HomeScreen extends StatelessWidget {
                 ),
               ),
             ),
+            Expanded(
+                child: Obx(
+              () => ListView.builder(
+                shrinkWrap: true,
+                itemCount: dbcontro.dataList.length,
+                itemBuilder: (context, index) {
+                  var d = dbcontro.dataList[index];
+                  return ListTile(
+                    onTap: () {
+                      Get.to(() => DetailPage(
+                            userModel: d,
+                          ));
+                    },
+                    title: Text(d.name ?? ""),
+                  );
+                },
+              ),
+            ))
           ],
         ),
       ),

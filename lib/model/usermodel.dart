@@ -1,5 +1,3 @@
-import 'dart:convert';
-
 import 'package:cloud_firestore/cloud_firestore.dart';
 
 // ignore_for_file: public_member_api_docs, sort_constructors_first
@@ -46,12 +44,11 @@ class Address {
   String? id;
   String? street;
   List<dynamic>? pincodes;
-  Local? local;
+
   Address({
     this.id,
     this.street,
     this.pincodes,
-    this.local,
   });
 
   Map<String, dynamic> toMap() {
@@ -59,45 +56,15 @@ class Address {
       'id': id,
       'street': street,
       'pincodes': pincodes,
-      'local': local?.toMap(),
     };
   }
 
-  factory Address.fromMap(DocumentSnapshot map) {
+  factory Address.fromMap(Map<String, dynamic> map) {
     return Address(
       id: map['id'],
       street: map['street'],
       pincodes:
           map['pincodes'] != null ? List<dynamic>.from((map['pincodes'])) : [],
-      local: map['local'] != null ? Local.fromMap(map['local']) : null,
     );
-  }
-}
-
-class Local {
-  String? id;
-  String? localname;
-  List<String>? cities;
-  Local({
-    this.id,
-    this.localname,
-    this.cities,
-  });
-
-  Map<String, dynamic> toMap() {
-    return <String, dynamic>{
-      'id': id,
-      'localname': localname,
-      'cities': cities,
-    };
-  }
-
-  factory Local.fromMap(DocumentSnapshot map) {
-    return Local(
-        id: map['id'],
-        localname: map['localname'],
-        cities: map['cities'] != null
-            ? List<String>.from((map['cities'])).toList()
-            : []);
   }
 }
