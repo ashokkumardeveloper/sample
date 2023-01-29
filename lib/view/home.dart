@@ -1,3 +1,4 @@
+import 'package:cloud_functions/controller/databasecontroller.dart';
 import 'package:cloud_functions/controller/notificationcontroller.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/src/widgets/container.dart';
@@ -7,6 +8,7 @@ import 'package:get/get.dart';
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
   final notiController = Get.put(NotificationController());
+  final dbcontro = Get.put(DataBaseController());
 
   @override
   Widget build(BuildContext context) {
@@ -22,8 +24,9 @@ class HomeScreen extends StatelessWidget {
           children: [
             InkWell(
               onTap: () {
-                notiController.sendNotification(
-                    "title", "welcome to cloudfunctions");
+                //   notiController.sendNotification(
+                //       "title", "welcome to cloudfunctions");
+                dbcontro.createDate();
               },
               child: Container(
                 alignment: Alignment.center,

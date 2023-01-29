@@ -20,10 +20,9 @@ class NotificationController extends GetxController {
             importance: Importance.max,
             playSound: true,
             priority: Priority.high));
-    var date = DateTime.now();
 
-    await flutterLocalNotificationsPlugin.show(
-        0, title, body, notificationDetails);
+    await flutterLocalNotificationsPlugin
+        .show(0, title, body, notificationDetails, payload: "hiii");
   }
 
   @override
