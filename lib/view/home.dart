@@ -1,69 +1,49 @@
-import 'package:cloud_functions/controller/databasecontroller.dart';
-import 'package:cloud_functions/controller/notificationcontroller.dart';
+import 'package:cloud_functions/blocks/crudbloc_cubit.dart';
+import 'package:cloud_functions/blocks/crudbloc_state.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/src/widgets/container.dart';
-import 'package:flutter/src/widgets/framework.dart';
-import 'package:get/get.dart';
-
-import 'detailpage.dart';
 
 class HomeScreen extends StatelessWidget {
   HomeScreen({super.key});
-  final notiController = Get.put(NotificationController());
-  final dbcontro = Get.put(DataBaseController());
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        title: Text("Home Screen"),
-        actions: [IconButton(onPressed: () {}, icon: Icon(Icons.add))],
-      ),
-      body: Padding(
-        padding: const EdgeInsets.all(20.0),
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            InkWell(
-              onTap: () {
-                //   notiController.sendNotification(
-                //       "title", "welcome to cloudfunctions");
-                dbcontro.createDate();
-              },
-              child: Container(
-                alignment: Alignment.center,
-                height: 50,
-                width: double.infinity,
-                decoration: BoxDecoration(
-                    borderRadius: BorderRadius.circular(12),
-                    color: Colors.green),
-                child: const Text(
-                  "SEND NOTIFICATION",
-                ),
-              ),
-            ),
-            Expanded(
-                child: Obx(
-              () => ListView.builder(
-                shrinkWrap: true,
-                itemCount: dbcontro.dataList.length,
-                itemBuilder: (context, index) {
-                  var d = dbcontro.dataList[index];
-                  return ListTile(
-                    onTap: () {
-                      Get.to(() => DetailPage(
-                            userModel: d,
-                          ));
+        appBar: AppBar(
+          title: const Text("Home Screen"),
+          actions: [
+            BlocConsumer<DataCubit, DataState>(
+              builder: (context, state) {
+                return IconButton(
+                    onPressed: () {
+                      BlocProvider.of<DataCubit>(context).createData("new");
                     },
-                    title: Text(d.name ?? ""),
-                  );
-                },
-              ),
-            ))
+                    icon: Icon(Icons.add));
+              },
+              listener: (context, state) {},
+            )
           ],
         ),
-      ),
-    );
+        body: SafeArea(child: BlocBuilder<DataCubit, DataState>(
+          builder: (context, state) {
+            if (state is DataLoadingState) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            }
+            if (state is DataLoadedState) {
+              return ListView.builder(
+                  itemCount: state.list.length,
+                  itemBuilder: (c, i) {
+                    var d = state.list[i];
+                    return Text(d.name ?? "");
+                  });
+            }
+            if (state is DataFailureState) {
+              return Text(state.error);
+            }
+            return Center(child: Text("error"));
+          },
+        )));
   }
 }
